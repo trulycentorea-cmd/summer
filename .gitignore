@@ -1,0 +1,10 @@
+# 임시 테스트 파일 (Chrome headless 검증용, 로컬에서만 씀)
+_*.html
+
+# OS / 편집기
+Thumbs.db
+.DS_Store
+.vscode/
+
+# 로컬 서버 부산물
+.cache/

@@ -1,0 +1,241 @@
+/* 초등 저학년 대상이므로 글씨와 버튼을 크게, 색을 밝게 유지한다. */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: "Pretendard", "Malgun Gothic", sans-serif;
+  background: linear-gradient(160deg, #fef6e4 0%, #e8f4fd 100%);
+  min-height: 100vh;
+  color: #2d3142;
+}
+
+.app {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 20px 40px;
+}
+
+/* 화면 전환: 5개 section 중 .is-active 하나만 보인다. 페이지 이동은 없다. */
+.screen { display: none; }
+.screen.is-active { display: block; animation: fade 0.25s ease; }
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: none; }
+}
+
+h1 { font-size: 32px; margin-bottom: 4px; }
+h2 { font-size: 26px; margin-bottom: 4px; text-align: center; }
+
+.screen-sub, .home-sub {
+  text-align: center;
+  color: #6b7280;
+  font-size: 15px;
+  margin-bottom: 20px;
+}
+
+/* ===== 홈 ===== */
+.home-card { text-align: center; padding-top: 24px; }
+
+.coach-face {
+  font-size: 88px;
+  animation: bounce 2.4s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-10px); }
+}
+
+.stat-row {
+  display: flex;
+  gap: 10px;
+  margin: 24px 0;
+}
+.stat {
+  flex: 1;
+  background: #fff;
+  border-radius: 16px;
+  padding: 14px 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+}
+.stat-value { font-size: 24px; font-weight: 700; }
+.stat-label { font-size: 12px; color: #6b7280; margin-top: 4px; }
+
+/* ===== 버튼 ===== */
+.btn {
+  display: block;
+  width: 100%;
+  border: none;
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform .12s, opacity .12s;
+}
+.btn:active:not(:disabled) { transform: scale(0.97); }
+.btn:disabled { opacity: .4; cursor: not-allowed; }
+
+.btn-big { padding: 20px; font-size: 20px; }
+.btn-primary { background: #4a7dff; color: #fff; margin-bottom: 10px; }
+.btn-danger  { background: #ff5a5f; color: #fff; }
+.btn-ghost   { background: #fff; color: #4a5568; box-shadow: 0 2px 8px rgba(0,0,0,.05); }
+
+.btn-row { display: flex; gap: 10px; margin-top: 20px; }
+.btn-row .btn { margin-bottom: 0; }
+
+/* ===== 미션 체크리스트 ===== */
+.mission-list { list-style: none; }
+.mission-list li { margin-bottom: 10px; }
+
+.mission-list label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 16px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,.05);
+  transition: background .15s;
+}
+.mission-list input { width: 24px; height: 24px; accent-color: #4a7dff; flex-shrink: 0; }
+.mission-list input:checked ~ span { color: #4a7dff; }
+.mission-list label:has(input:checked) { background: #eef3ff; }
+.mission-emoji { font-size: 24px; }
+
+.hint { text-align: center; color: #9ca3af; font-size: 14px; margin-top: 16px; }
+
+/* ===== 발표 중 ===== */
+.rec-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.rec-dot {
+  width: 12px; height: 12px;
+  background: #ff5a5f;
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+@keyframes blink { 50% { opacity: .2; } }
+.rec-timer { font-size: 28px; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.video-wrap {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #1f2937;
+  aspect-ratio: 4 / 3;
+  margin-bottom: 18px;
+}
+#preview {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  /* 거울처럼 보여야 아이가 자기 움직임을 직관적으로 인식한다. */
+  transform: scaleX(-1);
+}
+
+.meter { margin-bottom: 24px; }
+.meter-label { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+.meter-track {
+  height: 28px;
+  background: #e5e7eb;
+  border-radius: 14px;
+  overflow: hidden;
+}
+.meter-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #7ee0a8, #4a7dff);
+  transition: width .08s linear;
+}
+.meter-hint { font-size: 14px; color: #6b7280; margin-top: 8px; text-align: center; }
+
+.error-text { color: #dc2626; font-size: 14px; margin-top: 14px; text-align: center; }
+
+/* ===== 결과 ===== */
+.coach-bubble {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 18px 0 22px;
+}
+.coach-face-sm { font-size: 44px; flex-shrink: 0; }
+.bubble {
+  background: #fff;
+  border-radius: 18px;
+  padding: 16px;
+  font-size: 16px;
+  line-height: 1.6;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  flex: 1;
+}
+.bubble strong { color: #4a7dff; }
+.bubble p + p { margin-top: 8px; }
+
+.score-list { list-style: none; }
+.score-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 13px 16px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.score-name { font-weight: 600; width: 68px; flex-shrink: 0; }
+.score-stars { font-size: 18px; letter-spacing: 2px; }
+.score-note { margin-left: auto; font-size: 12px; color: #9ca3af; }
+
+.reward {
+  background: #fff8e1;
+  border-radius: 18px;
+  padding: 18px;
+  margin-top: 18px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 700;
+}
+.reward:empty { display: none; }
+.reward .reward-big { font-size: 30px; display: block; margin-bottom: 4px; }
+
+/* ===== 성장 기록 ===== */
+.chart-box {
+  background: #fff;
+  border-radius: 18px;
+  padding: 14px 10px;
+  margin-bottom: 16px;
+  height: 240px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.05);
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  justify-content: center;
+}
+.badge {
+  background: #fff8e1;
+  border: 2px solid #ffd97a;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.empty {
+  text-align: center;
+  color: #9ca3af;
+  padding: 48px 0;
+  font-size: 16px;
+  line-height: 1.8;
+}

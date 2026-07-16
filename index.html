@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 발표 코치</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<main class="app">
+
+  <!-- ===== 화면 1: 홈 ===== -->
+  <section class="screen is-active" id="screen-home">
+    <div class="home-card">
+      <div class="coach-face">🦉</div>
+      <h1>AI 발표 코치</h1>
+      <p class="home-sub">발표 연습을 하고 쿠키를 모아요!</p>
+
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-value" id="home-level">🌱</div>
+          <div class="stat-label" id="home-level-name">발표 새싹</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">🍪 <span id="home-cookies">0</span></div>
+          <div class="stat-label">모은 쿠키</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value" id="home-count">0</div>
+          <div class="stat-label">발표 횟수</div>
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-big" id="btn-go-mission">발표 연습하기</button>
+      <button class="btn btn-ghost" id="btn-go-growth">내 성장 보기</button>
+    </div>
+  </section>
+
+  <!-- ===== 화면 2: 발표 미션 ===== -->
+  <section class="screen" id="screen-mission">
+    <h2>오늘의 발표 미션</h2>
+    <p class="screen-sub">발표 전에 하나씩 읽고 체크해요</p>
+
+    <ul class="mission-list" id="mission-list">
+      <li><label><input type="checkbox" data-mission><span class="mission-emoji">😊</span><span>자신감 있게 말하기</span></label></li>
+      <li><label><input type="checkbox" data-mission><span class="mission-emoji">🎤</span><span>목소리 크게 말하기</span></label></li>
+      <li><label><input type="checkbox" data-mission><span class="mission-emoji">🐢</span><span>천천히 말하기</span></label></li>
+      <li><label><input type="checkbox" data-mission><span class="mission-emoji">🧍</span><span>바른 자세 유지하기</span></label></li>
+      <li><label><input type="checkbox" data-mission><span class="mission-emoji">👀</span><span>친구들을 바라보며 말하기</span></label></li>
+    </ul>
+
+    <p class="hint" id="mission-hint">5개를 모두 체크하면 시작할 수 있어요</p>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" data-goto="home">뒤로</button>
+      <button class="btn btn-primary" id="btn-start" disabled>발표 시작하기</button>
+    </div>
+  </section>
+
+  <!-- ===== 화면 3: 발표 중 ===== -->
+  <section class="screen" id="screen-record">
+    <div class="rec-header">
+      <span class="rec-dot"></span>
+      <span class="rec-timer" id="rec-timer">00:00</span>
+    </div>
+
+    <div class="video-wrap">
+      <!-- muted: 내 목소리가 스피커로 나가면 하울링이 생기므로 반드시 필요 -->
+      <video id="preview" autoplay playsinline muted></video>
+    </div>
+
+    <div class="meter">
+      <div class="meter-label">🎤 목소리 크기</div>
+      <div class="meter-track">
+        <div class="meter-fill" id="volume-bar"></div>
+      </div>
+      <div class="meter-hint" id="volume-hint">말해보세요!</div>
+    </div>
+
+    <button class="btn btn-danger btn-big" id="btn-stop">발표 끝내기</button>
+    <p class="error-text" id="record-error"></p>
+  </section>
+
+  <!-- ===== 화면 4: 결과 ===== -->
+  <section class="screen" id="screen-result">
+    <h2>발표 결과</h2>
+
+    <div class="coach-bubble">
+      <div class="coach-face-sm">🦉</div>
+      <div class="bubble" id="coach-message"></div>
+    </div>
+
+    <ul class="score-list" id="score-list"></ul>
+
+    <div class="reward" id="reward-box"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" data-goto="home">홈으로</button>
+      <button class="btn btn-primary" id="btn-again">다시 발표하기</button>
+    </div>
+  </section>
+
+  <!-- ===== 화면 5: 성장 기록 ===== -->
+  <section class="screen" id="screen-growth">
+    <h2>내 성장 기록</h2>
+    <div id="growth-body"></div>
+    <div class="btn-row">
+      <button class="btn btn-ghost" data-goto="home">홈으로</button>
+    </div>
+  </section>
+
+</main>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

@@ -367,7 +367,7 @@ const BADGES = [
   { key: 'eyeContact', emoji: '👀', name: '눈맞춤 왕' },
   { key: 'confidence', emoji: '😊', name: '자신감 최고' },
   { key: 'posture',    emoji: '🧍', name: '바른 자세 챔피언' },
-  { key: 'speed',      emoji: '🐢', name: '천천히 말하기 달인' },
+  { key: 'speed',      emoji: '🐢', name: '알맞은 빠르기 달인' },
 ];
 
 /** 해당 요소로 ⭐5를 세 번 받으면 배지를 얻는다. 한 번의 운이 아니라 습관이 됐다는 뜻이다. */

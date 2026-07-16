@@ -4,9 +4,13 @@ import { VoiceMeter, AUDIO_CONSTRAINTS } from './audio.js';
 import { SpeechCounter, isSupported as speechSupported } from './speech.js';
 import { calcScores, ELEMENTS } from './score.js';
 import { buildFeedback, calcCookies } from './coach.js';
+import { pickTopic } from './topics.js';
 import * as storage from './storage.js';
 
 const $ = (sel) => document.querySelector(sel);
+
+// 지금 발표할 주제. 미션 화면에서 정하고, 발표 중 화면에서도 잊지 않게 보여준다.
+let currentTopic = null;
 
 // 발표 한 번 동안만 쓰는 상태. 발표가 끝나면 전부 버린다.
 let session = null;
@@ -70,6 +74,16 @@ function resetMissions() {
   updateMissionState();
 }
 
+// ===== 발표 주제 =====
+/** 새 주제를 뽑아 미션 화면 카드에 그린다. avoid를 넘기면 방금 것과 다른 주제가 나온다. */
+function newTopic() {
+  currentTopic = pickTopic(currentTopic);
+  $('#topic-emoji').textContent = currentTopic.emoji;
+  $('#topic-title').textContent = currentTopic.title;
+  $('#topic-hints').innerHTML = currentTopic.hints
+    .map(h => `<li>${h}</li>`).join('');
+}
+
 // ===== 발표 시작 =====
 async function startPresentation() {
   $('#record-error').textContent = '';
@@ -86,6 +100,9 @@ async function startPresentation() {
   }
 
   goto('record');
+  // 발표 중에도 무슨 주제였는지 잊지 않게 위에 띄워준다.
+  $('#topic-banner').textContent = `${currentTopic.emoji} ${currentTopic.title}`;
+
   const video = $('#preview');
   video.srcObject = stream;
 
@@ -317,9 +334,10 @@ function renderBadges(records) {
 
 // ===== 버튼 연결 =====
 // 미션을 읽고 체크하는 10~20초 동안 얼굴 인식 모델을 미리 받아둔다.
-const goMission = () => { resetMissions(); goto('mission'); preloadVision(); };
+const goMission = () => { resetMissions(); newTopic(); goto('mission'); preloadVision(); };
 
 $('#btn-go-mission').onclick = goMission;
+$('#btn-new-topic').onclick = newTopic;
 $('#btn-go-growth').onclick = () => goto('growth');
 $('#btn-start').onclick = startPresentation;
 $('#btn-stop').onclick = stopPresentation;

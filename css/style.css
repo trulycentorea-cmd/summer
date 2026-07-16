@@ -85,6 +85,56 @@ h2 { font-size: 26px; margin-bottom: 4px; text-align: center; }
 .btn-row { display: flex; gap: 10px; margin-top: 20px; }
 .btn-row .btn { margin-bottom: 0; }
 
+/* ===== 발표 주제 카드 ===== */
+.topic-card {
+  background: linear-gradient(160deg, #fff4d6, #ffe4ec);
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 22px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.07);
+}
+.topic-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.topic-emoji { font-size: 40px; }
+.topic-title { font-size: 22px; font-weight: 800; }
+.topic-guide { font-size: 14px; color: #8a6d3b; font-weight: 600; margin-bottom: 6px; }
+.topic-hints {
+  list-style: none;
+  margin-bottom: 14px;
+}
+.topic-hints li {
+  background: rgba(255,255,255,.7);
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  font-size: 16px;
+  font-weight: 600;
+}
+.topic-hints li::before { content: '💬 '; }
+
+.btn-small {
+  padding: 12px;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+/* 발표 중 화면 상단에 주제를 잊지 않게 띄우는 띠 */
+.topic-banner {
+  background: #eef3ff;
+  color: #2d3142;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 14px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 800;
+}
+.topic-banner:empty { display: none; }
+
 /* ===== 미션 체크리스트 ===== */
 .mission-list { list-style: none; }
 .mission-list li { margin-bottom: 10px; }

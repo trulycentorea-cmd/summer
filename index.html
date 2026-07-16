@@ -40,7 +40,17 @@
   <!-- ===== 화면 2: 발표 미션 ===== -->
   <section class="screen" id="screen-mission">
     <h2>오늘의 발표 미션</h2>
-    <p class="screen-sub">발표 전에 하나씩 읽고 체크해요</p>
+    <p class="screen-sub">무엇을 발표할지 정하고, 미션을 체크해요</p>
+
+    <div class="topic-card" id="topic-card">
+      <div class="topic-head">
+        <span class="topic-emoji" id="topic-emoji">🍜</span>
+        <span class="topic-title" id="topic-title">내가 좋아하는 음식</span>
+      </div>
+      <p class="topic-guide">이렇게 말해 볼까요?</p>
+      <ul class="topic-hints" id="topic-hints"></ul>
+      <button class="btn btn-ghost btn-small" id="btn-new-topic">🎲 다른 주제 보기</button>
+    </div>
 
     <ul class="mission-list" id="mission-list">
       <li><label><input type="checkbox" data-mission><span class="mission-emoji">😊</span><span>자신감 있게 말하기</span></label></li>
@@ -64,6 +74,8 @@
       <span class="rec-dot"></span>
       <span class="rec-timer" id="rec-timer">00:00</span>
     </div>
+
+    <div class="topic-banner" id="topic-banner"></div>
 
     <div class="video-wrap">
       <!-- muted: 내 목소리가 스피커로 나가면 하울링이 생기므로 반드시 필요 -->

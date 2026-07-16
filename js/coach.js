@@ -5,7 +5,7 @@
 //   ✅ "교실 맨 뒷자리 친구에게 들리게 말해볼까요?" → 다음에 뭘 할지 아는 행동
 // 개선점은 한 번에 하나만 말한다. 다섯 개를 쏟아내면 아이가 발표를 싫어하게 된다.
 
-import { ELEMENTS } from './score.js';
+import { ELEMENTS, speedDirection } from './score.js';
 
 const PRAISE = {
   confidence: '자신감이 가득한 발표였어요!',
@@ -91,7 +91,7 @@ function bestGrowth(grown, scores) {
 /** 속도는 너무 빠른지 느린지에 따라 조언이 정반대다. */
 function tipFor(key, raw) {
   if (key !== 'speed') return TIPS[key];
-  return raw.syllablesPerMin > 280
+  return speedDirection(raw.syllablesPerMin) === 'fast'
     ? '조금 빨랐어요. 문장 끝마다 한 번 쉬어 볼까요?'
-    : '조금 더 씩씩하게 이어서 말해 볼까요?';
+    : '조금 느렸어요. 조금 더 씩씩하게 이어서 말해 볼까요?';
 }

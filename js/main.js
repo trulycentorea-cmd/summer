@@ -2,7 +2,7 @@
 
 import { VoiceMeter, AUDIO_CONSTRAINTS } from './audio.js';
 import { SpeechCounter, isSupported as speechSupported } from './speech.js';
-import { calcScores, ELEMENTS } from './score.js';
+import { calcScores, ELEMENTS, speedDirection } from './score.js';
 import { buildFeedback, calcCookies } from './coach.js';
 import { pickTopic, TOPICS } from './topics.js';
 import { renderQR, shareableUrl } from './qr.js';
@@ -254,6 +254,16 @@ function missingNote(key, raw) {
   return '측정하지 못했어요';
 }
 
+/** 속도 별점 옆에 붙는 방향 태그. 빠름/느림/딱 좋음을 한눈에 보여준다. */
+function speedTag(key, score, raw) {
+  if (key !== 'speed' || score === null || !raw.speedOk) return '';
+  const dir = speedDirection(raw.syllablesPerMin);
+  const label = dir === 'fast' ? '🐇 조금 빨라요'
+              : dir === 'slow' ? '🐢 조금 느려요'
+              : '👍 딱 좋아요';
+  return `<span class="speed-tag speed-${dir}">${label}</span>`;
+}
+
 // ===== 결과 화면 =====
 function renderResult(scores, feedback, reward, raw) {
   const lines = [feedback.growth, feedback.praise, feedback.tip].filter(Boolean);
@@ -266,7 +276,9 @@ function renderResult(scores, feedback, reward, raw) {
     const body = score === null
       ? `<span class="score-note">${missingNote(el.key, raw)}</span>`
       : `<span class="score-stars">${'⭐'.repeat(score)}${'☆'.repeat(5 - score)}</span>`;
-    return `<li><span class="score-name">${el.emoji} ${el.name}</span>${body}</li>`;
+    // 속도는 별점만으로 빠른지 느린지 알 수 없으므로, 방향을 항상 함께 보여준다.
+    const tag = speedTag(el.key, scores[el.key], raw);
+    return `<li><span class="score-name">${el.emoji} ${el.name}</span>${body}${tag}</li>`;
   }).join('');
 
   $('#reward-box').innerHTML =

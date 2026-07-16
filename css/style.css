@@ -308,6 +308,18 @@ h2 { font-size: 26px; margin-bottom: 4px; text-align: center; }
 .score-stars { font-size: 18px; letter-spacing: 2px; }
 .score-note { margin-left: auto; font-size: 12px; color: #9ca3af; }
 
+.speed-tag {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.speed-fast { background: #ffe4e4; color: #d94a4a; }
+.speed-slow { background: #fff2d6; color: #b8860b; }
+.speed-good { background: #e2f6e8; color: #2e9e57; }
+
 .reward {
   background: #fff8e1;
   border-radius: 18px;

@@ -63,6 +63,17 @@ function confidenceScore({ voice, speed, eyeContact }, silenceRatio) {
 }
 
 /**
+ * 말하기 속도가 빨랐는지 느렸는지 알려준다. 별점만으로는 방향을 알 수 없어서,
+ * 결과 화면과 코치 문장이 같은 기준으로 방향을 말하도록 여기서 한 번에 정한다.
+ * @returns {'fast'|'slow'|'good'} 이상 구간보다 빠르면 fast, 느리면 slow, 안이면 good
+ */
+export function speedDirection(spm) {
+  if (spm > SPEED_IDEAL_MAX) return 'fast';
+  if (spm < SPEED_IDEAL_MIN) return 'slow';
+  return 'good';
+}
+
+/**
  * 속도는 "빠를수록 나쁨"이 아니라 "너무 빠르거나 너무 느리면 나쁨"이다.
  * 이상 구간(200~280음절/분) 안이면 만점, 벗어난 거리만큼 감점한다.
  */

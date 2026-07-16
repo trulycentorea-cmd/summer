@@ -89,7 +89,7 @@ function updateMissionState() {
 /** 미션을 다 안 채우고 시작을 누르면, 이유를 알려주고 안 한 항목을 흔들어 준다. */
 function nudgeMissions() {
   const hint = $('#mission-hint');
-  hint.textContent = '❗ 발표 미션을 모두 체크해야 시작할 수 있어요';
+  hint.textContent = '❗ 미션 기준을 모두 체크하세요';
   hint.classList.add('mission-hint-warn');
 
   missionBoxes().forEach(box => {

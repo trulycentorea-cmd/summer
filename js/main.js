@@ -70,13 +70,35 @@ function renderHome() {
 // ===== 미션 체크리스트 =====
 const missionBoxes = () => [...document.querySelectorAll('[data-mission]')];
 
+function allMissionsChecked() {
+  return missionBoxes().every(b => b.checked);
+}
+
 function updateMissionState() {
   const done = missionBoxes().filter(b => b.checked).length;
   const all = done === missionBoxes().length;
-  $('#btn-start').disabled = !all;
+  // disabled로 막지 않는다. 눌렀을 때 "왜 안 되는지" 알려주려면 클릭이 살아있어야 한다.
+  // 대신 아직 준비 안 됐다는 걸 회색(btn-waiting)으로 보여준다.
+  $('#btn-start').classList.toggle('btn-waiting', !all);
+  $('#mission-hint').classList.remove('mission-hint-warn');
   $('#mission-hint').textContent = all
     ? '준비 완료! 발표를 시작해요 🎉'
     : `${done} / ${missionBoxes().length} 체크했어요`;
+}
+
+/** 미션을 다 안 채우고 시작을 누르면, 이유를 알려주고 안 한 항목을 흔들어 준다. */
+function nudgeMissions() {
+  const hint = $('#mission-hint');
+  hint.textContent = '❗ 발표 미션을 모두 체크해야 시작할 수 있어요';
+  hint.classList.add('mission-hint-warn');
+
+  missionBoxes().forEach(box => {
+    if (box.checked) return;
+    const li = box.closest('li');
+    li.classList.remove('shake');
+    void li.offsetWidth;          // 애니메이션을 다시 트리거하기 위한 리플로우
+    li.classList.add('shake');
+  });
 }
 
 function resetMissions() {
@@ -124,6 +146,12 @@ function chooseTopic(index) {
 
 // ===== 발표 시작 =====
 async function startPresentation() {
+  // 미션을 다 체크해야 시작할 수 있다. 안 됐으면 이유를 알려주고 멈춘다.
+  if (!allMissionsChecked()) {
+    nudgeMissions();
+    return;
+  }
+
   $('#record-error').textContent = '';
 
   let stream;

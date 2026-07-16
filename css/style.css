@@ -223,6 +223,20 @@ h2 { font-size: 26px; margin-bottom: 4px; text-align: center; }
 
 .hint { text-align: center; color: #9ca3af; font-size: 14px; margin-top: 16px; }
 
+/* 아직 미션을 다 안 채웠을 때의 시작 버튼: 회색으로 "아직이에요"를 보여주되 클릭은 살려둔다 */
+.btn-waiting { background: #c3cbd8; }
+
+/* 시작을 눌렀는데 미션이 덜 됐을 때 뜨는 안내 */
+.mission-hint-warn { color: #dc2626; font-weight: 700; }
+
+/* 안 체크한 미션 항목을 좌우로 흔들어 눈길을 끈다 */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-7px); }
+  40%, 80% { transform: translateX(7px); }
+}
+.mission-list li.shake { animation: shake 0.4s ease; }
+
 /* ===== 발표 중 ===== */
 .rec-header {
   display: flex;

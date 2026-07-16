@@ -49,7 +49,17 @@
       </div>
       <p class="topic-guide">이렇게 말해 볼까요?</p>
       <ul class="topic-hints" id="topic-hints"></ul>
-      <button class="btn btn-ghost btn-small" id="btn-new-topic">🎲 다른 주제 보기</button>
+      <div class="topic-btn-row">
+        <button class="btn btn-ghost btn-small" id="btn-new-topic">🎲 다른 주제</button>
+        <button class="btn btn-ghost btn-small" id="btn-pick-topic">📋 목록에서 고르기</button>
+      </div>
+    </div>
+
+    <!-- 주제 목록 (평소엔 숨김, "목록에서 고르기"를 누르면 열린다) -->
+    <div class="topic-picker" id="topic-picker" hidden>
+      <p class="topic-guide">발표하고 싶은 주제를 골라요</p>
+      <div class="topic-grid" id="topic-grid"></div>
+      <button class="btn btn-ghost btn-small" id="btn-close-picker">닫기</button>
     </div>
 
     <ul class="mission-list" id="mission-list">

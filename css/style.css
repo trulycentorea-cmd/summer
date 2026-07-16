@@ -118,9 +118,47 @@ h2 { font-size: 26px; margin-bottom: 4px; text-align: center; }
 
 .btn-small {
   padding: 12px;
-  font-size: 16px;
+  font-size: 15px;
   margin-bottom: 0;
 }
+.topic-btn-row {
+  display: flex;
+  gap: 8px;
+}
+.topic-btn-row .btn { flex: 1; }
+
+/* 주제 목록에서 고르기 */
+.topic-picker {
+  background: #fff;
+  border-radius: 20px;
+  padding: 18px;
+  margin-bottom: 22px;
+  box-shadow: 0 3px 12px rgba(0,0,0,.07);
+}
+.topic-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+.topic-choice {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f6f8ff;
+  border: 2px solid transparent;
+  border-radius: 14px;
+  padding: 12px 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  font-family: inherit;
+  transition: border-color .12s, background .12s;
+}
+.topic-choice:active { transform: scale(0.97); }
+.topic-choice.is-current { border-color: #4a7dff; background: #eef3ff; }
+.topic-choice .choice-emoji { font-size: 22px; flex-shrink: 0; }
 
 /* 발표 중 화면 상단에 주제를 잊지 않게 띄우는 띠 */
 .topic-banner {

@@ -4,7 +4,7 @@ import { VoiceMeter, AUDIO_CONSTRAINTS } from './audio.js';
 import { SpeechCounter, isSupported as speechSupported } from './speech.js';
 import { calcScores, ELEMENTS } from './score.js';
 import { buildFeedback, calcCookies } from './coach.js';
-import { pickTopic } from './topics.js';
+import { pickTopic, TOPICS } from './topics.js';
 import * as storage from './storage.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -75,13 +75,41 @@ function resetMissions() {
 }
 
 // ===== 발표 주제 =====
-/** 새 주제를 뽑아 미션 화면 카드에 그린다. avoid를 넘기면 방금 것과 다른 주제가 나온다. */
-function newTopic() {
-  currentTopic = pickTopic(currentTopic);
+/** 지금 주제(currentTopic)를 카드에 그린다. */
+function renderTopic() {
   $('#topic-emoji').textContent = currentTopic.emoji;
   $('#topic-title').textContent = currentTopic.title;
   $('#topic-hints').innerHTML = currentTopic.hints
     .map(h => `<li>${h}</li>`).join('');
+}
+
+/** 새 주제를 무작위로 뽑는다 (방금 것과 다른 주제). "🎲 다른 주제" 버튼. */
+function newTopic() {
+  currentTopic = pickTopic(currentTopic);
+  renderTopic();
+}
+
+/** 주제 목록을 그리드로 그린다. 지금 주제는 파란 테두리로 표시. */
+function buildTopicGrid() {
+  $('#topic-grid').innerHTML = TOPICS.map((t, i) => `
+    <button class="topic-choice${t.title === currentTopic?.title ? ' is-current' : ''}" data-topic="${i}">
+      <span class="choice-emoji">${t.emoji}</span><span>${t.title}</span>
+    </button>`).join('');
+}
+
+function openPicker() {
+  buildTopicGrid();
+  $('#topic-picker').hidden = false;
+}
+function closePicker() {
+  $('#topic-picker').hidden = true;
+}
+
+/** 목록에서 주제 하나를 고르면 그걸로 정하고 목록을 닫는다. */
+function chooseTopic(index) {
+  currentTopic = TOPICS[index];
+  renderTopic();
+  closePicker();
 }
 
 // ===== 발표 시작 =====
@@ -334,10 +362,17 @@ function renderBadges(records) {
 
 // ===== 버튼 연결 =====
 // 미션을 읽고 체크하는 10~20초 동안 얼굴 인식 모델을 미리 받아둔다.
-const goMission = () => { resetMissions(); newTopic(); goto('mission'); preloadVision(); };
+const goMission = () => { resetMissions(); newTopic(); closePicker(); goto('mission'); preloadVision(); };
 
 $('#btn-go-mission').onclick = goMission;
 $('#btn-new-topic').onclick = newTopic;
+$('#btn-pick-topic').onclick = openPicker;
+$('#btn-close-picker').onclick = closePicker;
+// 그리드 버튼은 매번 새로 그려지므로, 부모에 위임해서 클릭을 받는다.
+$('#topic-grid').onclick = (e) => {
+  const btn = e.target.closest('[data-topic]');
+  if (btn) chooseTopic(Number(btn.dataset.topic));
+};
 $('#btn-go-growth').onclick = () => goto('growth');
 $('#btn-start').onclick = startPresentation;
 $('#btn-stop').onclick = stopPresentation;

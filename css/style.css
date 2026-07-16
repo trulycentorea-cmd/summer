@@ -34,6 +34,32 @@ h2 { font-size: 26px; margin-bottom: 4px; text-align: center; }
   margin-bottom: 20px;
 }
 
+/* ===== 시작 · 핸드폰(QR) ===== */
+.qr-box {
+  background: #fff;
+  border-radius: 20px;
+  padding: 18px;
+  margin: 0 auto 18px;
+  width: 260px;
+  max-width: 80%;
+  box-shadow: 0 3px 12px rgba(0,0,0,.08);
+}
+.qr-box svg { width: 100%; height: auto; display: block; }
+.qr-box:empty { display: none; }
+
+.qr-guide { text-align: center; color: #6b7280; font-size: 14px; margin-bottom: 8px; }
+.qr-url {
+  background: #eef3ff;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 700;
+  color: #2d3142;
+  word-break: break-all;
+  margin-bottom: 8px;
+}
+
 /* ===== 홈 ===== */
 .home-card { text-align: center; padding-top: 24px; }
 

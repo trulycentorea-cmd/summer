@@ -5,6 +5,7 @@ import { SpeechCounter, isSupported as speechSupported } from './speech.js';
 import { calcScores, ELEMENTS } from './score.js';
 import { buildFeedback, calcCookies } from './coach.js';
 import { pickTopic, TOPICS } from './topics.js';
+import { renderQR, shareableUrl } from './qr.js';
 import * as storage from './storage.js';
 
 const $ = (sel) => document.querySelector(sel);
@@ -45,6 +46,15 @@ function goto(name) {
   $(`#screen-${name}`).classList.add('is-active');
   if (name === 'home') renderHome();
   if (name === 'growth') renderGrowth();
+  if (name === 'phone') renderPhoneScreen();
+}
+
+// ===== 핸드폰으로 열기 (QR) =====
+function renderPhoneScreen() {
+  const url = shareableUrl();
+  $('#qr-url').textContent = url;
+  // QR은 CDN 라이브러리가 필요하다. 실패하면 위의 주소 글자만 남는다.
+  renderQR($('#qr-box'), url);
 }
 
 // ===== 홈 =====
@@ -364,6 +374,8 @@ function renderBadges(records) {
 // 미션을 읽고 체크하는 10~20초 동안 얼굴 인식 모델을 미리 받아둔다.
 const goMission = () => { resetMissions(); newTopic(); closePicker(); goto('mission'); preloadVision(); };
 
+$('#btn-use-web').onclick = () => goto('home');
+$('#btn-use-phone').onclick = () => goto('phone');
 $('#btn-go-mission').onclick = goMission;
 $('#btn-new-topic').onclick = newTopic;
 $('#btn-pick-topic').onclick = openPicker;

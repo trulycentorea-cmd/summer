@@ -10,8 +10,38 @@
 
 <main class="app">
 
+  <!-- ===== 화면 0: 시작 (어디에서 사용할지 고르기) ===== -->
+  <section class="screen is-active" id="screen-start">
+    <div class="home-card">
+      <div class="coach-face">🦉</div>
+      <h1>AI 발표 코치</h1>
+      <p class="home-sub">어디에서 발표 연습을 할까요?</p>
+
+      <button class="btn btn-primary btn-big" id="btn-use-web">💻 컴퓨터로 사용하기</button>
+      <button class="btn btn-ghost btn-big" id="btn-use-phone">📱 핸드폰으로 사용하기</button>
+
+      <p class="hint">발표하려면 카메라와 마이크가 필요해요</p>
+    </div>
+  </section>
+
+  <!-- ===== 화면 0-1: 핸드폰으로 열기 (QR) ===== -->
+  <section class="screen" id="screen-phone">
+    <h2>핸드폰으로 열기</h2>
+    <p class="screen-sub">핸드폰 카메라로 아래 QR 코드를 찍어요</p>
+
+    <div class="qr-box" id="qr-box"></div>
+
+    <p class="qr-guide">또는 핸드폰 인터넷 주소창에 이 주소를 입력해요</p>
+    <div class="qr-url" id="qr-url"></div>
+
+    <div class="btn-row">
+      <button class="btn btn-ghost" data-goto="start">뒤로</button>
+      <button class="btn btn-primary" data-goto="home">이 컴퓨터에서 그냥 하기</button>
+    </div>
+  </section>
+
   <!-- ===== 화면 1: 홈 ===== -->
-  <section class="screen is-active" id="screen-home">
+  <section class="screen" id="screen-home">
     <div class="home-card">
       <div class="coach-face">🦉</div>
       <h1>AI 발표 코치</h1>
